@@ -15,24 +15,24 @@ io.on("connection", (socket) => {
     users[socket.id] = { id: socket.id };
   }
 
-  socket.on("ID", () => {
-    socket.emit("yourID", socket.id);
-    io.sockets.emit("allUsers", users);
+  socket.on("rtc_ID", () => {
+    socket.emit("rtc_yourID", socket.id);
+    io.sockets.emit("rtc_allUsers", users);
   });
 
   socket.on("disconnect", () => {
     delete users[socket.id];
   });
 
-  socket.on("callUser", (data) => {
-    io.to(data.userToCall).emit("hey", {
+  socket.on("rtc_callUser", (data) => {
+    io.to(data.userToCall).emit("rtc_hey", {
       signal: data.signalData,
       from: data.from,
     });
   });
 
-  socket.on("acceptCall", (data) => {
-    io.to(data.to).emit("callAccepted", data.signal);
+  socket.on("rtc_acceptCall", (data) => {
+    io.to(data.to).emit("rtc_callAccepted", data.signal);
   });
 });
 

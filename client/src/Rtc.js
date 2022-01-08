@@ -59,19 +59,19 @@ function Rtc() {
         }
       });
 
-    socket.current.on("yourID", (id) => {
+    socket.current.on("rtc_yourID", (id) => {
       setYourID(id);
     });
-    socket.current.on("allUsers", (users) => {
+    socket.current.on("rtc_allUsers", (users) => {
       setUsers(users);
     });
 
-    socket.current.emit("ID", (data, users) => {
+    socket.current.emit("rtc_ID", (data, users) => {
       setYourID(data);
       setUsers(users);
     });
 
-    socket.current.on("hey", (data) => {
+    socket.current.on("rtc_hey", (data) => {
       setReceivingCall(true);
       setCaller(data.from);
       setCallerSignal(data.signal);
@@ -87,7 +87,7 @@ function Rtc() {
     });
 
     peer.on("signal", (data) => {
-      socket.current.emit("callUser", {
+      socket.current.emit("rtc_callUser", {
         userToCall: id,
         signalData: data,
         from: yourID,
@@ -100,7 +100,7 @@ function Rtc() {
       }
     });
 
-    socket.current.on("callAccepted", (signal) => {
+    socket.current.on("rtc_callAccepted", (signal) => {
       setCallAccepted(true);
       peer.signal(signal);
     });
@@ -114,7 +114,7 @@ function Rtc() {
       stream: stream,
     });
     peer.on("signal", (data) => {
-      socket.current.emit("acceptCall", { signal: data, to: caller });
+      socket.current.emit("rtc_acceptCall", { signal: data, to: caller });
     });
 
     peer.on("stream", (stream) => {
