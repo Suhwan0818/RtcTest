@@ -143,6 +143,15 @@ function Rtc() {
       </div>
     );
   }
+
+  // function callIsComing(key) {
+  //   console.log(caller === "");
+  //   if (caller === "") {
+  //     callPeer(key);
+  //     setCaller("1");
+  //   }
+  // }
+
   return (
     <>
       <Container>
